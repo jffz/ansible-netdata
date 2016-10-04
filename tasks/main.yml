@@ -1,0 +1,51 @@
+---
+# tasks file for jffz.netdata
+- name: "Install pre-requisites"    
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: 
+    "{{ debian.packages }}"
+  when: ansible_os_family == "Debian"
+
+- name: "Install pre-requisites"    
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: 
+    "{{ rhel.packages }}"
+  when: ansible_os_family == "RedHat"
+
+- name: "Clone repo"
+  git:
+    clone: yes
+    repo: https://github.com/firehol/netdata.git
+    dest: /tmp/netdata
+
+- name: "Installation"
+  shell: cd /tmp/netdata/ && ./netdata-installer.sh --dont-wait --libs-are-really-here
+
+- name: "Deploy init.d script"
+  copy:
+    remote_src: True
+    src: /tmp/netdata/system/netdata-init-d.in
+    dest: /etc/init.d/netdata
+    mode: 0755
+
+- name: "Clean /tmp"
+  file:
+    path: /tmp/netdata
+    state: absent
+
+- name: "KillAll"
+  shell: killall netdata
+
+
+
+# For ansible 2.2
+#- name: "Daemon config"
+#  systemd:
+#    daemon_reload: yes
+#    name: netdata
+#    enabled: yes
+#    state: started

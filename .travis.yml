@@ -1,0 +1,36 @@
+---
+language: python
+python: "2.7"
+env:
+  - ANSIBLE_VERSION=1.9.4
+  - ANSIBLE_VERSION=2.1.2
+
+# Use the new container infrastructure
+sudo: false
+
+# Install ansible
+addons:
+  apt:
+    packages:
+    - python-pip
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  # Install ansible
+  - pip install ansible
+
+  # Check ansible version
+  - ansible --version
+
+  # Create ansible.cfg with correct roles_path
+  - printf '[defaults]\nroles_path=../' >ansible.cfg
+
+script:
+  # Basic role syntax check
+  - ansible --version
+  - export ANSIBLE_ROLES_PATH="../"
+  - ansible-playbook -i hosts --syntax-check netdata.yml
+  - ansible-playbook -i hosts -vvvv netdata.yml
+

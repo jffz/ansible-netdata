@@ -1,0 +1,7 @@
+---
+# handlers file for jffz.netdata
+- name: Start netdata
+  service: name=netdata state=started
+
+- name: Restart netdata
+  service: name=netdata state=restarted
