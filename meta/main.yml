@@ -8,18 +8,18 @@ galaxy_info:
   min_ansible_version: 1.2
 
   platforms:
-  - name: EL
-   versions:
-    - 6
-    - 7
-  - name: Ubuntu
-   versions:
-    - precise
-    - xenial
-  - name: Debian
-    versions:
-    - jessie
-    - wheezy
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Ubuntu
+      versions:
+        - precise
+        - xenial
+    - name: Debian
+      versions:
+        - jessie
+        - wheezy
 
   galaxy_tags: []
     # List tags for your role here, one per line. A tag is
