@@ -43,6 +43,12 @@
     path: /tmp/netdata
     state: absent
 
+- name: "Enable service"
+  service:
+    name: netdata
+    enabled: yes
+    state: restarted
+
 #- name: "KillAll"
 #  shell: killall netdata
 
