@@ -7,6 +7,12 @@
   with_items: 
     "{{ debian.packages }}"
   when: ansible_os_family == "Debian"
+  
+- name: "EPEL repo"
+  yum:
+    name: epel-release
+    state: present
+  when: ansible_os_family == "RedHat"
 
 - name: "Install pre-requisites"    
   yum:
@@ -37,8 +43,8 @@
     path: /tmp/netdata
     state: absent
 
-- name: "KillAll"
-  shell: killall netdata
+#- name: "KillAll"
+#  shell: killall netdata
 
 
 
