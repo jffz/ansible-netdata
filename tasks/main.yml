@@ -43,21 +43,10 @@
     path: /tmp/netdata
     state: absent
 
-- name: "Enable service"
-  service:
+# For ansible 2.2
+- name: "Daemon config"
+  systemd:
+    daemon_reload: yes
     name: netdata
     enabled: yes
-    state: restarted
-
-#- name: "KillAll"
-#  shell: killall netdata
-
-
-
-# For ansible 2.2
-#- name: "Daemon config"
-#  systemd:
-#    daemon_reload: yes
-#    name: netdata
-#    enabled: yes
-#    state: started
+    state: started
