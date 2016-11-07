@@ -5,7 +5,7 @@ galaxy_info:
 
   license: license Apache v2.0
 
-  min_ansible_version: 1.2
+  min_ansible_version: 2.2
 
   platforms:
     - name: EL
@@ -21,7 +21,7 @@ galaxy_info:
         - jessie
         - wheezy
 
-  galaxy_tags: []
+  galaxy_tags: [netdata]
     # List tags for your role here, one per line. A tag is
     # a keyword that describes and categorizes the role.
     # Users find roles by searching for tags. Be sure to
