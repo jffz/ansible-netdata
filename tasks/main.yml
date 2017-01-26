@@ -1,5 +1,11 @@
 ---
 # tasks file for jffz.netdata
+- name: update the apt cache
+  apt: >
+        update_cache=yes
+        cache_valid_time=86400
+  when: ansible_os_family == "Debian"
+  
 - name: "Install pre-requisites"    
   apt:
     name: "{{ item }}"
@@ -22,31 +28,41 @@
     "{{ rhel.packages }}"
   when: ansible_os_family == "RedHat"
 
+#Clone reopo into source and keep it for later (upgrade)
 - name: "Clone repo"
   git:
     clone: yes
+    update: yes
     repo: https://github.com/firehol/netdata.git
-    dest: /tmp/netdata
+    dest: /usr/src/netdata
+  register: gitupdate
 
 - name: "Installation"
-  shell: cd /tmp/netdata/ && ./netdata-installer.sh --dont-wait --libs-are-really-here
+  shell: cd /usr/src/netdata/ && ./netdata-installer.sh --dont-wait --libs-are-really-here
+  notify:  Restart netdata
+  when: gitupdate.changed
 
-- name: "Deploy init.d script"
-  copy:
-    remote_src: True
-    src: /tmp/netdata/system/netdata-init-d
-    dest: /etc/init.d/netdata
-    mode: 0755
 
-- name: "Clean /tmp"
-  file:
-    path: /tmp/netdata
-    state: absent
+# we keep the sources for upgrades
+#- name: "Clean git repo"
+#  file:
+#    path: /usr/src/netdata
+#    state: absent
 
-# For ansible 2.2
-- name: "Daemon config"
-  systemd:
-    daemon_reload: yes
-    name: netdata
-    enabled: yes
-    state: started
+
+#Optional: use your own registry
+- lineinfile:
+    dest: /etc/netdata/netdata.conf
+    regexp: '^\t# registry to announce.*'
+    line: '\t registry to announce = http://your-registry-server.comp.tld:19999'
+    backrefs: yes
+
+#Optional: Disable notifications
+- lineinfile:
+    dest: /etc/netdata/health_alarm_notify.conf
+    regexp: '^SEND_EMAIL="YES"'
+    line: 'SEND_EMAIL="NO"'
+    backrefs: yes
+
+
+#ToDo Uninstaller -  see netdata-uninstaller.sh
