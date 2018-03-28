@@ -1,31 +1,4 @@
 ---
-# defaults file for jffz.netdata
-debian:
-  packages:
-    - autoconf
-    - autoconf-archive
-    - autogen
-    - automake
-    - gcc
-    - git
-    - libmnl-dev
-    - make
-    - pkg-config
-    - uuid-dev
-    - zlib1g-dev
-
-rhel:
-  packages:
-    - autoconf
-    - autoconf-archive
-    - autogen
-    - automake
-    - curl
-    - gcc
-    - git
-    - jq
-    - libmnl-devel
-    - libuuid-devel
-    - make
-    - pkgconfig
-    - zlib-devel
+# netdata_registry: "http://your-registry-server.comp.tld:19999"
+netdata_registry: ""
+netdata_notifications: True
