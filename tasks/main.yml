@@ -15,7 +15,7 @@
   package:
     name: epel-release
     state: present
-  when: 
+  when:
     - ansible_os_family == "RedHat"
     - ansible_distribution != "Fedora"
 
