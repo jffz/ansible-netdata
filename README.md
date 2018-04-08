@@ -1,6 +1,6 @@
 <p><img src="https://pbs.twimg.com/profile_images/734637357480194048/dqVkYxwm_400x400.jpg" alt="netdata logo" title="netdata" align="right" height="60" /></p>
 
-# Ansible Role: prometheus
+# Ansible Role: netdata
 
 [![Build Status](https://travis-ci.org/jffz/ansible-netdata.svg?branch=master)](https://travis-ci.org/jffz/ansible-netdata)
 [![License](https://img.shields.io/badge/license-BSD%20License-brightgreen.svg)](https://opensource.org/licenses/BSD-2-Clause)
