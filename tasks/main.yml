@@ -37,6 +37,8 @@
   shell: cd /usr/src/netdata/ && ./netdata-installer.sh --dont-wait --libs-are-really-here
   notify:  Restart netdata
   when: gitupdate.changed
+  tags:
+  - skip_ansible_lint
 
 # we keep the sources for upgrades
 #- name: "Clean git repo"
