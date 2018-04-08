@@ -6,10 +6,11 @@ OS="$1"
 if [ "$OS" == "" ]; then
 	exit 1
 fi
+echo "USING IMAGE OF $OS"
 DISTRO="$(echo ${OS} | awk -F ':' '{print $1}')"
 VERSION="$(echo ${OS} | awk -F ':' '{print $2}')"
 
-docker pull "paulfantom/molecule-$OS"
+docker pull "paulfantom/$DISTRO-molecule:$VERSION"
 
 mv "${MOLECULE_CONF}" "${MOLECULE_CONF}.tmp"
 sed -n '/  containers:/q;p' "${MOLECULE_CONF}.tmp" > "${MOLECULE_CONF}"

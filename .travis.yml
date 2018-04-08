@@ -27,7 +27,7 @@ install:
 before_script:
   - ansible-lint tests/playbook.yml
 script:
-  - .travis/parallelizer.sh ${OS}
+  - .travis/parallelizer.sh $OS
   - molecule test
 branches:
   only:
