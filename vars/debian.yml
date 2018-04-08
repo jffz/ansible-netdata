@@ -1,0 +1,12 @@
+netdata_dependencies:
+ - autoconf
+ - autoconf-archive
+ - autogen
+ - automake
+ - gcc
+ - git
+ - libmnl-dev
+ - make
+ - pkg-config
+ - uuid-dev
+ - zlib1g-dev

@@ -1,32 +1,27 @@
 ---
-# tasks file for jffz.netdata
+- name: Gather variables for each operating system
+  include_vars: "{{ item }}"
+  with_items: "{{ ansible_os_family | lower }}.yml"
+  tags:
+    - always
+
 - name: update the apt cache
-  apt: >
-        update_cache=yes
-        cache_valid_time=86400
-  when: ansible_os_family == "Debian"
-  
-- name: "Install pre-requisites"    
   apt:
-    name: "{{ item }}"
-    state: present
-  with_items: 
-    "{{ debian.packages }}"
+    update_cache: yes
+    cache_valid_time: 86400
   when: ansible_os_family == "Debian"
-  
+
 - name: "EPEL repo"
-  yum:
+  package:
     name: epel-release
     state: present
   when: ansible_os_family == "RedHat"
 
-- name: "Install pre-requisites"    
-  yum:
+- name: "Install pre-requisites"
+  package:
     name: "{{ item }}"
     state: present
-  with_items: 
-    "{{ rhel.packages }}"
-  when: ansible_os_family == "RedHat"
+  with_items: "{{ netdata_dependencies }}"
 
 #Clone reopo into source and keep it for later (upgrade)
 - name: "Clone repo"
@@ -35,13 +30,15 @@
     update: yes
     repo: https://github.com/firehol/netdata.git
     dest: /usr/src/netdata
+    version: master
   register: gitupdate
 
 - name: "Installation"
   shell: cd /usr/src/netdata/ && ./netdata-installer.sh --dont-wait --libs-are-really-here
   notify:  Restart netdata
   when: gitupdate.changed
-
+  tags:
+  - skip_ansible_lint
 
 # we keep the sources for upgrades
 #- name: "Clean git repo"
@@ -49,20 +46,20 @@
 #    path: /usr/src/netdata
 #    state: absent
 
-
-#Optional: use your own registry
-- lineinfile:
+- name: use custom registry
+  lineinfile:
     dest: /etc/netdata/netdata.conf
     regexp: '^\t# registry to announce.*'
-    line: '\t registry to announce = http://your-registry-server.comp.tld:19999'
+    line: '\t registry to announce = {{ netdata_registry }}'
     backrefs: yes
+  when: netdata_registry != ""
 
-#Optional: Disable notifications
-- lineinfile:
+- name: Disable notifications
+  lineinfile:
     dest: /etc/netdata/health_alarm_notify.conf
     regexp: '^SEND_EMAIL="YES"'
     line: 'SEND_EMAIL="NO"'
     backrefs: yes
-
+  when: not netdata_notifications
 
 #ToDo Uninstaller -  see netdata-uninstaller.sh
