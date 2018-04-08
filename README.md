@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/jffz/ansible-netdata.svg?branch=master)](https://travis-ci.org/jffz/ansible-netdata)
 [![License](https://img.shields.io/badge/license-BSD%20License-brightgreen.svg)](https://opensource.org/licenses/BSD-2-Clause)
-[![Ansible Role](https://img.shields.io/badge/ansible%20role-jffz-netdata-blue.svg)](https://galaxy.ansible.com/jffz/ansible/)
+[![Ansible Role](https://img.shields.io/badge/ansible%20role-jffz.netdata-blue.svg)](https://galaxy.ansible.com/jffz/ansible/)
 [![GitHub tag](https://img.shields.io/github/tag/jffz/ansible-netdata.svg)](https://github.com/cloudalchemy/ansible-netdata/tags)
 
 ## Description
