@@ -15,7 +15,9 @@
   package:
     name: epel-release
     state: present
-  when: ansible_os_family == "RedHat"
+  when: 
+    - ansible_os_family == "RedHat"
+    - ansible_distribution != "Fedora"
 
 - name: "Install pre-requisites"
   package:
