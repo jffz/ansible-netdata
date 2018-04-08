@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MOLECULE_CONF="../molecule.yml"
+MOLECULE_CONF="molecule.yml"
 OS="$1"
 
 if [ "$OS" == "" ]; then
