@@ -4,12 +4,28 @@ cache: pip
 services:
   - docker
 env:
-  - ANSIBLE='ansible>=2.2.0,<2.3.0'
-  - ANSIBLE='ansible>=2.3.0,<2.4.0'
-  - ANSIBLE='ansible>=2.4.0,<2.5.0'
+  - ANSIBLE='ansible>=2.3.0,<2.4.0' OS="ubuntu:16.04"
+  - ANSIBLE='ansible>=2.3.0,<2.4.0' OS="ubuntu:18.04"
+  - ANSIBLE='ansible>=2.3.0,<2.4.0' OS="debian:8"
+  - ANSIBLE='ansible>=2.3.0,<2.4.0' OS="debian:9"
+  - ANSIBLE='ansible>=2.3.0,<2.4.0' OS="centos:7"
+  - ANSIBLE='ansible>=2.3.0,<2.4.0' OS="fedora:27"
+  - ANSIBLE='ansible>=2.4.0,<2.5.0' OS="ubuntu:16.04"
+  - ANSIBLE='ansible>=2.4.0,<2.5.0' OS="ubuntu:18.04"
+  - ANSIBLE='ansible>=2.4.0,<2.5.0' OS="debian:8"
+  - ANSIBLE='ansible>=2.4.0,<2.5.0' OS="debian:9"
+  - ANSIBLE='ansible>=2.4.0,<2.5.0' OS="centos:7"
+  - ANSIBLE='ansible>=2.4.0,<2.5.0' OS="fedora:27"
+  - ANSIBLE='ansible>=2.5.0,<2.6.0' OS="ubuntu:16.04"
+  - ANSIBLE='ansible>=2.5.0,<2.6.0' OS="ubuntu:18.04"
+  - ANSIBLE='ansible>=2.5.0,<2.6.0' OS="debian:8"
+  - ANSIBLE='ansible>=2.5.0,<2.6.0' OS="debian:9"
+  - ANSIBLE='ansible>=2.5.0,<2.6.0' OS="centos:7"
+  - ANSIBLE='ansible>=2.5.0,<2.6.0' OS="fedora:27"
 install:
   - pip install ${ANSIBLE} 'ansible-lint>=3.4.15' 'molecule==1.25.0' docker git-semver 'testinfra>=1.7.0,<=1.10.1'
 before_script:
+  - .travis/parallelizer.sh ${OS}
   - ansible-lint tests/playbook.yml
 script:
   - molecule test
