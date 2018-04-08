@@ -9,7 +9,7 @@ fi
 DISTRO="$(echo ${OS} | awk -F ':' '{print $1}')"
 VERSION="$(echo ${OS} | awk -F ':' '{print $2}')"
 
-docker pull "paulfantom/$DISTRO-molecule:$VERSION"
+docker pull "paulfantom/molecule-$OS"
 
 mv "${MOLECULE_CONF}" "${MOLECULE_CONF}.tmp"
 sed -n '/  containers:/q;p' "${MOLECULE_CONF}.tmp" > "${MOLECULE_CONF}"
