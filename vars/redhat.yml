@@ -4,6 +4,7 @@ netdata_dependencies:
   - autogen
   - automake
   - curl
+  - findutils
   - gcc
   - git
   - jq
