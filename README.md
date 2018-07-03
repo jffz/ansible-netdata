@@ -13,7 +13,7 @@ Deploy [netdata](https://github.com/firehol/netdata) monitoring system using ans
 
 ## Requirements
 
-- Ansible >= 2.3
+- Ansible >= 2.4
 
 ## Role Variables
 
@@ -37,17 +37,22 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 
 ## Local Testing
 
-The preferred way of locally testing the role is to use Docker and [molecule](https://github.com/metacloud/molecule) (v1.25). You will have to install Docker on your system. See Get started for a Docker package suitable to for your system.
-All packages you need to can be specified in one line:
+The preferred way of locally testing the role is to use Docker and [molecule](https://github.com/metacloud/molecule) (v2.x). You will have to install Docker on your system. See "Get started" for a Docker package suitable to for your system.
+We are using tox to simplify process of testing on multiple ansible versions. To install tox execute:
 ```sh
-pip install ansible 'ansible-lint>=3.4.15' 'molecule==1.25.0' docker 'testinfra>=1.7.0,<=1.10.1' jmespath
+pip install tox
 ```
-This should be similar to one listed in `.travis.yml` file in `install` section.
-After installing test suit you can run test by running
+To run tests on all ansible versions (WARNING: this can take some time)
 ```sh
-molecule test
+tox
 ```
-For more information about molecule go to their [docs](http://molecule.readthedocs.io/en/stable-1.25/).
+To run a custom molecule command on custom environment with only default test scenario:
+```sh
+tox -e py27-ansible25 -- molecule test -s default
+```
+For more information about molecule go to their [docs](http://molecule.readthedocs.io/en/latest/).
+
+If you would like to run tests on remote docker host just specify `DOCKER_HOST` variable before running tox tests.
 
 ## License
 
