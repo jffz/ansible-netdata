@@ -1,10 +1,10 @@
-netdata_dependencies:
+---
+netdata_script_dependencies:
   - autoconf
   - autoconf-archive
   - autogen
   - automake
   - curl
-  - findutils
   - gcc
   - git
   - jq

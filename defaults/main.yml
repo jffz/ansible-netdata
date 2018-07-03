@@ -1,4 +1,6 @@
 ---
+netdata_install_method: "script"
+
 # netdata_registry: "http://your-registry-server.comp.tld:19999"
 netdata_registry: ""
-netdata_notifications: True
+netdata_notifications: true
