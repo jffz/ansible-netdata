@@ -1,4 +1,5 @@
-netdata_dependencies:
+---
+netdata_script_dependencies:
  - autoconf
  - autoconf-archive
  - autogen

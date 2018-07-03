@@ -1,0 +1,47 @@
+---
+- name: install pre-requisites
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ netdata_script_dependencies }}"
+  register: _install_dep_packages
+  until: _install_dep_packages is succeeded
+  retries: 5
+  delay: 2
+
+- name: Clone repo into source and keep it for later (upgrade)
+  git:
+    clone: true
+    update: true
+    repo: https://github.com/firehol/netdata.git
+    dest: /usr/src/netdata
+    version: master
+  register: __gitupdate
+  until: __gitupdate is succeeded
+  retries: 5
+  delay: 2
+
+- name: execute installation script
+  command: bash netdata-installer.sh --dont-wait --libs-are-really-here
+  args:
+    chdir: /usr/src/netdata/
+  notify: restart netdata
+  when: __gitupdate is changed
+  tags:
+    - skip_ansible_lint
+
+- name: use custom registry
+  lineinfile:
+    dest: /etc/netdata/netdata.conf
+    regexp: '^\t# registry to announce.*'
+    line: '\t registry to announce = {{ netdata_registry }}'
+    backrefs: true
+  when: netdata_registry != ""
+
+- name: Disable notifications
+  lineinfile:
+    dest: /etc/netdata/health_alarm_notify.conf
+    regexp: '^SEND_EMAIL="YES"'
+    line: 'SEND_EMAIL="NO"'
+    backrefs: true
+  when: not netdata_notifications
