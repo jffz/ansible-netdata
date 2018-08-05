@@ -22,10 +22,10 @@
 - include: install_script.yml
   when: netdata_install_method == "script"
 
-- include: install_release.yml
-  when: netdata_install_method == "release"
-
-- include: configure.yml
+# - include: install_release.yml
+#   when: netdata_install_method == "release"
+#
+# - include: configure.yml
 
 - name: Enable netdata service and ensure it is started
   systemd:
