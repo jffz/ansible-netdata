@@ -16,6 +16,7 @@
     repo: https://github.com/firehol/netdata.git
     dest: /usr/src/netdata
     version: master
+    force: true
   register: __gitupdate
   until: __gitupdate is succeeded
   retries: 5
