@@ -1,5 +1,5 @@
 ---
-netdata_script_dependencies: autoconf,automake,gcc,git-core,libmnl0,make,pkg-config,libuuid1,zlib-devel
+#netdata_script_dependencies: autoconf,automake,gcc,git-core,libmnl0,make,pkg-config,libuuid1,zlib-devel
 
 # No Installation candidate for:
 # - autoconf-archive
