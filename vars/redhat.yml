@@ -1,15 +1,3 @@
 ---
-netdata_script_dependencies:
-  - autoconf
-  - autoconf-archive
-  - autogen
-  - automake
-  - curl
-  - gcc
-  - git
-  - jq
-  - libmnl-devel
-  - libuuid-devel
-  - make
-  - pkgconfig
-  - zlib-devel
+netdata_script_dependencies: autoconf,autoconf-archive,autogen,automake,curl,gcc,git,jq,libmnl-devel,libuuid-devel,make,pkgconfig,zlib-devel
+
